@@ -1,0 +1,6 @@
+it/istat/dcit/itc/GregApplication.class
+it/istat/dcit/itc/greg/entity/Rule.class
+it/istat/dcit/itc/greg/service/CheckService.class
+it/istat/dcit/itc/greg/dto/InputDTO.class
+it/istat/dcit/itc/greg/controller/CheckController.class
+it/istat/dcit/itc/greg/dto/ReplyDTO.class
