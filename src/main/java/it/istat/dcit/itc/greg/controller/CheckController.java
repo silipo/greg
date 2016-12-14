@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,13 +48,13 @@ public class CheckController {
         }
 
         //effettua chiamata a servizio Check
-        String return_json = "";
+        Map return_json = new HashMap();
         if (rows != null && rules != null) {
             return_json = checkService.performCheck(rows, rules);
         }
 
         //serializza in output il json degli errori       
-        return return_json;
+        return return_json.toString();
     }
 
 }

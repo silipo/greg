@@ -20,10 +20,9 @@ public class Rule {
         this.text = text;
     }
 
-    public Rule(String id, String text, String error_code, String update_val) {
+    public Rule(String id, String text, String update_val) {
         this.id = id;
         this.text = text;
-        this.error_code = error_code;
         this.update_val = update_val;
     }
 

@@ -1,7 +1,6 @@
 package it.istat.dcit.itc.greg.service;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import it.istat.dcit.itc.greg.entity.Rule;
+import it.istat.dcit.itc.greg.model.Rule;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -22,9 +21,9 @@ public class CheckServiceTest  {
 
     @BeforeClass
     public static void prepareTestData(){
-        Rule r10 = new Rule(10l, "[[0.7]] < 2010", "0.7 = 2010");
-        Rule r20 = new Rule(20l, "[[0.7]] > new Date().getFullYear()", "0.7 = new Date().getFullYear()");
-        Rule r30 = new Rule(30l, "( [[0.7]] == new Date().getFullYear() ) && ( [[0.6]] > new Date().getMonth() + 1 )", "0.6 = new Date().getMonth() + 1");
+        Rule r10 = new Rule("10", "[[0.7]] < 2010", "0.7 = 2010");
+        Rule r20 = new Rule("20", "[[0.7]] > new Date().getFullYear()", "0.7 = new Date().getFullYear()");
+        Rule r30 = new Rule("30", "( [[0.7]] == new Date().getFullYear() ) && ( [[0.6]] > new Date().getMonth() + 1 )", "0.6 = new Date().getMonth() + 1");
         rules.add(r10);
         rules.add(r20);
         rules.add(r30);
@@ -36,7 +35,7 @@ public class CheckServiceTest  {
 
     @Test
     public void execute(){
-        Map<String, List<Rule>> results  = srv.execute(data, rules);
+        Map<String, List<Rule>> results  = srv.performCheck(data, rules);
         results.forEach((row, err_list) -> System.out.println("Row: " + row + " errors: " + err_list));
         assertFalse("Should not be emtpy", results.isEmpty());
     }
