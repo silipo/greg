@@ -21,13 +21,9 @@ public class Rule {
         this.text = text;
     }
 
-    public Rule(long id, String text, Date valid_from, Date valid_to, String phase, String error_code, String update_val) {
+    public Rule(long id, String text, String update_val) {
         this.id = id;
         this.text = text;
-        this.valid_from = valid_from;
-        this.valid_to = valid_to;
-        this.phase = phase;
-        this.error_code = error_code;
         this.update_val = update_val;
     }
     
@@ -88,8 +84,9 @@ public class Rule {
     public void setUpdate_val(String update_val) {
         this.update_val = update_val;
     }
-    
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "ID: " + id + ", action: " + update_val;
+    }
 }
