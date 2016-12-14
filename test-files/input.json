@@ -1,0 +1,4 @@
+{
+      "data" : "http://localhost/test-files/data.csv",
+      "rules" : "http://localhost/test-files/rules.json"
+}

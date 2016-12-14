@@ -1,14 +1,13 @@
-package it.istat.dcit.itc.greg.entity;
+package it.istat.dcit.itc.greg.model;
 
 import java.util.Date;
 
 public class Rule {
 
-    private long id;
+    private String id;
     private String text;
     private Date valid_from;
     private Date valid_to;
-    private String phase;
     private String error_code;
     private String update_val;
 
@@ -16,24 +15,23 @@ public class Rule {
 
     }
 
-    public Rule(long id, String text) {
+    public Rule(String id, String text) {
         this.id = id;
         this.text = text;
     }
 
-    public Rule(long id, String text, String update_val) {
+    public Rule(String id, String text, String error_code, String update_val) {
         this.id = id;
         this.text = text;
+        this.error_code = error_code;
         this.update_val = update_val;
     }
-    
-    
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,14 +59,6 @@ public class Rule {
         this.valid_to = valid_to;
     }
 
-    public String getPhase() {
-        return phase;
-    }
-
-    public void setPhase(String phase) {
-        this.phase = phase;
-    }
-
     public String getError_code() {
         return error_code;
     }
@@ -89,4 +79,5 @@ public class Rule {
     public String toString() {
         return "ID: " + id + ", action: " + update_val;
     }
+
 }

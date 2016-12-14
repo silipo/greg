@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import it.istat.dcit.itc.greg.model.Rule;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -17,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 
 @Service
 public class CheckService {
@@ -28,24 +29,8 @@ public class CheckService {
     private ScriptEngine engine = engineManager.getEngineByName("nashorn");
 
     private org.slf4j.Logger logger = LoggerFactory.getLogger(CheckService.class);
-
-    public String log(InputDTO input) {
-
-        Invocable invocable = (Invocable) engine;
-        String out = "e1", out3 = "e2";
-
-        try {
-            engine.eval("function log(name) { return name }");
-            out = invocable.invokeFunction("log", input.getData()).toString();
-            out3 = invocable.invokeFunction("log", input.getPhase()).toString();
-
-        } catch (Throwable ex) {
-            logger.error("Nashorn engine error: ", ex);
-        }
-        return out + out3;
-    } 
     
-    public Map<String,List<Rule>> execute(List<String> data, List<Rule> rules){
+    public Map<String,List<Rule>> performCheck(List<String> data, List<Rule> rules){
 
         Map<String,List<Rule>> results = new HashMap<>();
         String[] variables = data.get(0).split(DATAFILE_SEPARATOR);
@@ -76,6 +61,24 @@ public class CheckService {
         return results;
     }
     
+    public String log(InputDTO input) {
+
+        ScriptEngineManager engineManager = new ScriptEngineManager();
+        ScriptEngine engine = engineManager.getEngineByName("nashorn");
+
+        Invocable invocable = (Invocable) engine;
+        String out = "e1", out3 = "e2";
+
+        try {
+            engine.eval("function log(name) { return name }");
+            out = invocable.invokeFunction("log", input.getData()).toString();
+            out3 = invocable.invokeFunction("log", input.getPhase()).toString();
+
+        } catch (Throwable ex) {
+            Logger.getLogger(CheckService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return out + out3;
+    } 
     
 
 }
