@@ -17,6 +17,5 @@ public class CheckService {
     public String performCheck(List<String> rows, List<Rule> rules) {
        return rows.size() + "\n" + rules.size();
     }
-   
 
 }

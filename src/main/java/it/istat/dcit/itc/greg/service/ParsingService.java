@@ -20,42 +20,27 @@ public class ParsingService {
 
     static Log logger = LogFactory.getLog(ParsingService.class);
 
-   
     //create ObjectMapper instance
     static ObjectMapper objmapper = new ObjectMapper();
 
-    public static List<String> parse(URL data) {
-        
+    public static List<String> parse(URL data) throws IOException {
+
         List<String> retList;
         BufferedReader in;
 
-        try {
-            in = new BufferedReader(
-                    new InputStreamReader(data.openStream()));
-            
-            // read the csv
-            retList = in.lines().collect(Collectors.toList());
-            in.close();
+        in = new BufferedReader(new InputStreamReader(data.openStream()));
 
-        } catch (IOException ex) {
-            return null;
-        }
+        // read the csv
+        retList = in.lines().collect(Collectors.toList());
+        in.close();
 
         return retList;
 
     }
 
-    public static List<Rule> parseRules(URL rules) {
+    public static List<Rule> parseRules(URL rules) throws IOException {
 
-        List<Rule> r = null;
-
-        try {
-            r = objmapper.readValue(rules, objmapper.getTypeFactory().constructCollectionType(List.class, Rule.class
-            ));
-        } catch (IOException ex) {
-            logger.info("*** rules file not valid ");
-        }
-        return r;
+        return objmapper.readValue(rules, objmapper.getTypeFactory().constructCollectionType(List.class, Rule.class));
 
     }
 

@@ -6,6 +6,8 @@ import it.istat.dcit.itc.greg.dto.ReplyDTO;
 import it.istat.dcit.itc.greg.model.Rule;
 import it.istat.dcit.itc.greg.service.CheckService;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,30 +32,17 @@ public class CheckController {
 
     @RequestMapping(value = "/check", method = RequestMethod.POST, produces = {"application/json"})
     @ResponseBody
-    public String check(@Valid @RequestBody final InputDTO input) {
+    public String check(@Valid @RequestBody final InputDTO input) throws IOException {
         logger.info("*** dati ricevuti dal client [ URL ai dati : " + input.getData().toString() + " ]");
 
-        //TOdo
-        //implemento controlli di validità sugli URL        
-        //Uso dell’ErrorHandler e logging del formato di errore ritornato
-        //Codifica dati in UTF-8
-        //Exception handling tramite @ControllerAdvice
-        
-        
-        //leggi i dati e le regole dai due files, popola le strutture dati
-        //tramite chiamate a due service (uso Stream api)
         List<String> rows = ParsingService.parse(input.getData());
         if (rows != null) {
             logger.info("*** n. righe dati [ " + rows.size() + " ]");
-        } else {
-            logger.info("*** file not found or empty file ");
         }
 
         List<Rule> rules = ParsingService.parseRules(input.getRules());
-        if (rows != null) {
-            logger.info("*** n. regole [ " + rules.size() + " ]");
-        } else {
-            logger.info("*** file not found or empty file ");
+        if (rules != null) {
+            logger.info("*** n. regole lette [ " + rules.size() + " ]");
         }
 
         //effettua chiamata a servizio Check
@@ -66,4 +55,4 @@ public class CheckController {
         return return_json;
     }
 
-} 
+}
