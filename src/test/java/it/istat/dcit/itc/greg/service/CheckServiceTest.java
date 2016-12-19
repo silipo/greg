@@ -17,26 +17,51 @@ public class CheckServiceTest  {
 
     CheckService srv = new CheckService();
     static List<Rule> rules = new ArrayList<Rule>();
-    static List<String> data = new ArrayList<String>();
+    static List<String> data = new ArrayList<>();
 
     @BeforeClass
     public static void prepareTestData(){
-        Rule r10 = new Rule("10", "[[0.7]] < 2010", "0.7 = 2010");
-        Rule r20 = new Rule("20", "[[0.7]] > new Date().getFullYear()", "0.7 = new Date().getFullYear()");
-        Rule r30 = new Rule("30", "( [[0.7]] == new Date().getFullYear() ) && ( [[0.6]] > new Date().getMonth() + 1 )", "0.6 = new Date().getMonth() + 1");
-        rules.add(r10);
-        rules.add(r20);
-        rules.add(r30);
+        //header
         data.add("0.6|0.7|0.8");
-        data.add("6|2017|");
-        data.add("17|2016|");
-        data.add("7|2006|");
     }
 
     @Test
-    public void execute(){
+    public void testRule10(){
+        rules.add(new Rule("10", "[[0.7]] < 2010", "0.7 = 2010"));
+        data.add("0.6|2017|0.8");
         Map<String, List<Rule>> results  = srv.performCheck(data, rules);
-        results.forEach((row, err_list) -> System.out.println("Row: " + row + " errors: " + err_list));
-        assertFalse("Should not be emtpy", results.isEmpty());
+        assertFalse("Rule 10 result should not be emtpy", results.size() == 1 );
+    }
+
+    @Test
+    public void testRule20(){
+        rules.add(new Rule("20", "[[0.7]] > new Date().getFullYear()", "0.7 = new Date().getFullYear()"));
+        data.add("0.6|2016|0.8");
+        Map<String, List<Rule>> results  = srv.performCheck(data, rules);
+        assertFalse("Rule 20 result should not be emtpy", results.size() == 1 );
+    }
+
+    @Test
+    public void testRule30(){
+        rules.add(new Rule("30", "( [[0.7]] == new Date().getFullYear() ) && ( [[0.6]] > new Date().getMonth() + 1 )", "0.6 = new Date().getMonth() + 1"));
+        data.add("13|2016|0.8");
+        Map<String, List<Rule>> results  = srv.performCheck(data, rules);
+        assertFalse("Rule 30 result should not be emtpy", results.size() == 1 );
+    }
+
+    @Test
+    public void testRule100(){
+        rules.add(new Rule("30", "( [[0.7]] == new Date().getFullYear() ) && ( [[0.6]] > new Date().getMonth() + 1 )", "0.6 = new Date().getMonth() + 1"));
+        data.add("13|2016|0.8");
+        Map<String, List<Rule>> results  = srv.performCheck(data, rules);
+        assertFalse("Rule 30 result should not be emtpy", results.size() == 1 );
+    }
+
+    @Test
+    public void testRule110(){
+        rules.add(new Rule("30", "( [[0.7]] == new Date().getFullYear() ) && ( [[0.6]] > new Date().getMonth() + 1 )", "0.6 = new Date().getMonth() + 1"));
+        data.add("13|2016|0.8");
+        Map<String, List<Rule>> results  = srv.performCheck(data, rules);
+        assertFalse("Rule 30 result should not be emtpy", results.size() == 1 );
     }
 }
