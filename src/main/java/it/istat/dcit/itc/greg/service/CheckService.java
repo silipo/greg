@@ -1,18 +1,5 @@
 package it.istat.dcit.itc.greg.service;
 
-import it.istat.dcit.itc.greg.dto.InputDTO;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import it.istat.dcit.itc.greg.model.Rule;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Pattern;
-import javax.script.Invocable;
-
 import it.istat.dcit.itc.greg.model.Rule;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,6 +7,11 @@ import org.springframework.stereotype.Service;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 @Service
 public class CheckService {
@@ -48,11 +40,11 @@ public class CheckService {
                 }
                 try {
                     if((Boolean)engine.eval(rtxt)){
-                        logger.debug("Rule fail: " + r.getId() + " on row: " + row_index + ", action to perform: " + r.getUpdate_val() );
+                        logger.debug("Rule violated: " + r.getId() + " on row: " + row_index + ", action to perform: " + r.getUpdate_val() );
                         row_errors.add(r);
                     }
                 } catch (ScriptException e) {
-                    logger.error("Engine rule evaluation exception on rule: " + rtxt, e);
+                    logger.error("Engine rule evaluation exception on rule: " + rtxt);
                 }
             }
             if(!row_errors.isEmpty()){
