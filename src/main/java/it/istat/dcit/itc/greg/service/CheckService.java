@@ -2,11 +2,15 @@ package it.istat.dcit.itc.greg.service;
 
 import it.istat.dcit.itc.greg.model.Rule;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +26,12 @@ public class CheckService {
     private ScriptEngine engine = engineManager.getEngineByName("nashorn");
 
     private org.slf4j.Logger logger = LoggerFactory.getLogger(CheckService.class);
-    
+
+    public CheckService() throws IOException, ScriptException {
+        ClassPathResource classPathResource = new ClassPathResource("functions.js");
+        engine.eval(new BufferedReader(new InputStreamReader(classPathResource.getInputStream())));
+    }
+
     public Map<String,List<Rule>> performCheck(List<String> data, List<Rule> rules){
 
         Map<String,List<Rule>> results = new HashMap<>();
