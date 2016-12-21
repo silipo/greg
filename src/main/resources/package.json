@@ -1,0 +1,14 @@
+{
+  "name": "gregjs",
+  "version": "1.0.0",
+  "description": "GREG Engine javascript resources",
+  "main": "functions.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rolando Duma <ziogiugno@gmail.com> (http://ziogiugno.github.io)",
+  "license": "ISC",
+  "dependencies": {
+    "validate.js": "^0.11.1"
+  }
+}
