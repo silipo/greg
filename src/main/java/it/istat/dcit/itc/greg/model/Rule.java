@@ -4,42 +4,42 @@ import java.util.Date;
 
 public class Rule {
 
-    private String id;
-    private String text;
+    private String expression;
     private Date valid_from;
     private Date valid_to;
     private String error_code;
-    private String update_val;
+    private String action;
+    private Boolean blocking;
 
     public Rule() {
 
     }
 
-    public Rule(String id, String text) {
-        this.id = id;
-        this.text = text;
+    public String getExpression() {
+        return expression;
     }
 
-    public Rule(String id, String text, String update_val) {
-        this.id = id;
-        this.text = text;
-        this.update_val = update_val;
+    public void setExpression(String expression) {
+        this.expression = expression;
     }
 
-    public String getId() {
-        return id;
+    public String getAction() {
+        return action;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setAction(String action) {
+        this.action = action;
     }
 
-    public String getText() {
-        return text;
+    public Rule(String expression) {
+        this.expression = expression;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public Rule(String error_code, String expression, String action, Boolean blocking) {
+        this.error_code = error_code;
+        this.expression = expression;
+        this.action = action;
+        this.blocking = blocking;        
     }
 
     public Date getValid_from() {
@@ -66,17 +66,17 @@ public class Rule {
         this.error_code = error_code;
     }
 
-    public String getUpdate_val() {
-        return update_val;
+    public Boolean getBlocking() {
+        return blocking;
     }
 
-    public void setUpdate_val(String update_val) {
-        this.update_val = update_val;
+    public void setBlocking(Boolean blocking) {
+        this.blocking = blocking;
     }
-
+    
     @Override
     public String toString() {
-        return "ID: " + id + ", action: " + update_val;
-    }
+        return (blocking? "[Blocking rule]" : "[Non blocking rule]") + " error code: " + error_code + ", action: " + action;
+    } 
 
 }

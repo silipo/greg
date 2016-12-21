@@ -42,14 +42,14 @@ public class CheckService {
             String[] row_data = data.get(row_index).split(DATAFILE_SEPARATOR,variables.length);
             //logger.debug("Data length: " + row_data.length);
             for(Rule r: rules){
-                String rtxt = r.getText();
+                String rtxt = r.getExpression();
                 for(int var_index = 0; var_index < variables.length; var_index++){
                     String placeholder_regex = "\\[\\[\\b" + variables[var_index] + "\\b\\]\\]";
                     rtxt = rtxt.replaceAll(placeholder_regex, row_data[var_index]);
                 }
                 try {
                     if((Boolean)engine.eval(rtxt)){
-                        logger.debug("Rule violated: " + r.getId() + " on row: " + row_index + ", action to perform: " + r.getUpdate_val() );
+                        logger.debug("Error " + r.getError_code() + " on row: " + row_index + ", action to perform: " + r.getAction() );
                         row_errors.add(r);
                     }
                 } catch (ScriptException e) {
