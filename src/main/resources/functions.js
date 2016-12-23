@@ -1,16 +1,18 @@
 
 
-
-
-function invalidMonth( val ){
-    return ( val < 1 ) || ( val > 12 )
+function removeChars( val ){
+    return val.replace("/[^0-9]/g", "");
 }
 
-function invalid( val ) {
+function validMonth( val ){
+    return ( val > 0 ) && ( val < 13 )
+}
+
+function valid( val ) {
     var v = val;
     if(v){
-        return false;
-    } else {
         return true;
+    } else {
+        return false;
     }
 }
