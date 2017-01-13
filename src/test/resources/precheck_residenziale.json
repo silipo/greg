@@ -1,0 +1,24 @@
+[{
+        "expression": "[[0.7]] < 2010",
+        "error_code": "10",
+        "action": "('0.7=2010')",
+        "blocking": false
+    },{
+        "expression": "[[0.6]] > 12",
+        "error_code": "11",
+        "action": "('0.6=12')",
+        "blocking": false
+    },
+    {
+        "expression": "[[0.7]] > new Date().getFullYear()",
+        "error_code": "20",
+        "action": "('0.7=' + new Date().getFullYear())",
+        "blocking": false
+    },
+    {
+        "expression": "( [[0.7]] == new Date().getFullYear() ) && ( [[0.6]] > new Date().getMonth()+1 )",
+        "error_code": "30",
+        "action": "('0.6=' + new Date().getMonth()+1)",
+        "blocking": false
+    }
+]

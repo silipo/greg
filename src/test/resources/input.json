@@ -1,4 +1,4 @@
 {
       "data" : "http://localhost/test-files/residenziale.csv",
-      "rules" : "http://localhost/test-files/prechek.json"
+      "rules" : "http://localhost/test-files/prechek_residenziale.json"
 }
