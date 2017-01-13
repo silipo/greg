@@ -23,13 +23,20 @@ public class CheckService {
     private static final String DATAFILE_SEPARATOR = Pattern.quote("|");
 
     private ScriptEngineManager engineManager = new ScriptEngineManager();
-    private ScriptEngine engine = engineManager.getEngineByName("nashorn");
+    private ScriptEngine engine;
 
     private org.slf4j.Logger logger = LoggerFactory.getLogger(CheckService.class);
 
-    public CheckService() throws IOException, ScriptException {
+    public CheckService() {
+        engine = engineManager.getEngineByName("nashorn");
         ClassPathResource classPathResource = new ClassPathResource("functions.js");
-        engine.eval(new BufferedReader(new InputStreamReader(classPathResource.getInputStream())));
+        try {
+            engine.eval(new BufferedReader(new InputStreamReader(classPathResource.getInputStream())));
+        } catch (ScriptException e) {
+            throw new RuntimeException("ScriptException: " + e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException("IOException: " + e.getMessage());
+        }
     }
 
     public Map<String,List<Rule>> performCheck(List<String> data, List<Rule> rules){
@@ -48,12 +55,13 @@ public class CheckService {
                     rtxt = rtxt.replaceAll(placeholder_regex, row_data[var_index]);
                 }
                 try {
+                    logger.debug("Eval code: " +  rtxt);
                     if((Boolean)engine.eval(rtxt)){
                         logger.debug("Error " + r.getError_code() + " on row: " + row_index + ", action to perform: " + r.getAction() );
                         row_errors.add(r);
                     }
                 } catch (ScriptException e) {
-                    logger.error("Engine rule evaluation exception on rule: " + rtxt);
+                    logger.error("Engine rule evaluation exception on rule: " + rtxt, e);
                 }
             }
             if(!row_errors.isEmpty()){
