@@ -19,13 +19,14 @@ import static org.junit.Assert.assertTrue;
  */
 public class CheckServiceTest  {
 
-    private CheckService srv = new CheckService();
+    private static CheckService srv;
 
     private static List<Rule> rules = new ArrayList<>();
     private static List<String> data = new ArrayList<>();
 
     @BeforeClass
     public static void prepareTestData() throws IOException, ScriptException {
+        srv = new CheckService();
         //header
         data.add("8.1|8.2|0.1|0.2|0.3|0.4|0.6|0.7|0.5|0.8|0.9|1.1|1.2|1.3|1.4|1.8|2.1|2.2|2.3|2.4|2.5|2.6|2.7.11|2.7.21|2.7.31|2.7.41|2.7.51|2.7.61|2.7.12|2.7.22|2.7.32|2.7.42|2.7.52|2.7.62|2.7.13|2.7.23|2.7.33|2.7.43|2.7.53|2.7.63|2.7.14|2.7.24|2.7.34|2.7.44|2.7.54|2.7.64|2.12|2.8|2.9|2.10.1|2.10.2|2.10.3|2.10.4|2.10.5|2.11|3.1|3.2|3.3|3.4|3.5|3.6|3.7|3.8|3.9|3.10|3.11|3.12|4.1|4.2|4.3|4.4|4.5|5.1|6.1|6.2|7.1");
         //oppure
