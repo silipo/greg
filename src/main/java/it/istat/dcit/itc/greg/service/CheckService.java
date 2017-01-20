@@ -36,7 +36,7 @@ public class CheckService {
 
         Map<String, List<Rule>> results = new HashMap<>();
         String[] variables = data.get(0).split(DATAFILE_SEPARATOR);
-        Object evaluated_action;
+        String evaluated_action = "";
         //logger.debug("Evaluating rules with data variables: " + variables.length);
         for (int row_index = 1; row_index < data.size(); row_index++) {
             List<Rule> row_errors = new ArrayList<>();
@@ -51,18 +51,18 @@ public class CheckService {
                 }
                 try {
                     if ((Boolean) engine.eval(rtxt)) {
+                        Rule rule_error = new Rule();
+                        rule_error.setError_code(r.getError_code());
                         //c'è un errore nei dati, per cui interpreto la action (se è definita)
                         if (r.getAction() != null && !r.getAction().isEmpty()) {
-                            evaluated_action = engine.eval(r.getAction());
-                            if (evaluated_action != null) {
-                                r.setAction(evaluated_action.toString());
-                            }
+                            evaluated_action = (String) engine.eval(r.getAction());
+                            rule_error.setAction((String)engine.eval(evaluated_action.toString()));
                         }
-                        logger.debug("ERROR [" + r.getError_code() + "] on row: " + row_index + ", action to perform: " + r.getAction());
-                        row_errors.add(r);
+                        logger.debug("ERROR [" + r.getError_code() + "] on row: " + row_index + ", action to perform: " + rule_error.getAction());
+                        row_errors.add(rule_error);
                     }
                 } catch (ScriptException e) {
-                    logger.error("Engine rule evaluation exception on rule: " + rtxt);
+                    logger.error("Engine rule evaluation exception on rule: " + rtxt + ", action: " + evaluated_action + ", message: " + e.getMessage());
                 }
             }
             if (!row_errors.isEmpty()) {

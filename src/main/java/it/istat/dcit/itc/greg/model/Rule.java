@@ -76,7 +76,7 @@ public class Rule {
     
     @Override
     public String toString() {
-        return (blocking? "[Blocking rule]" : "[Non blocking rule]") + " error code: " + error_code + ", action: " + action;
+        return " error code: " + error_code + ", action: " + action;
     } 
 
 }
