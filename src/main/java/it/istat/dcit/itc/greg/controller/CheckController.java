@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/greg")
 public class CheckController {
 
     @Autowired
@@ -32,7 +31,7 @@ public class CheckController {
 
     Log logger = LogFactory.getLog(CheckController.class);
 
-    @RequestMapping(value = "/check", method = RequestMethod.POST, produces = {"application/json"})
+    @RequestMapping(value = "check", method = RequestMethod.POST, produces = {"application/json"})
     @ResponseBody
     public String check(@Valid @RequestBody final InputDTO input) throws IOException {
         logger.info("*** dati ricevuti dal client [ URL ai dati : " + input.getData().toString() + " ]");
