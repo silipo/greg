@@ -1,1 +1,1 @@
-for testing purposes you can use node.js, ececute 'npm install http-server -g' so you can start a simple http server in this folder with a simple 'http-server' command inside a DOS shell
+for testing purposes you can use node.js, first execute 'npm install http-server -g', after you can start a simple http server in this folder with a simple 'http-server -p 9090' command inside a DOS shell

@@ -1,4 +1,4 @@
 {
-      "data" : "http://10.18.182.80:8080/residenziale.csv",
-      "rules" : "http://10.18.182.80:8080/precheck_residenziale.json"
+      "data" : "http://localhost:9090/residenziale.csv",
+      "rules" : "http://localhost:9090/precheck_residenziale.json"
 }
