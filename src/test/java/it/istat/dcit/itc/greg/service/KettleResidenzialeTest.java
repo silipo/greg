@@ -32,7 +32,7 @@ public class KettleResidenzialeTest  {
 
     @Test
     public void testAll(){
-        Map<String, List<Rule>> results  = srv.performCheck(data, rules);
+        Map<String, List<Rule>> results  = srv.performCheck(data, rules, null, null);
         assertTrue("rows in error should be 1 while they are " + results.size(), results.size() == 3 );
     }
 

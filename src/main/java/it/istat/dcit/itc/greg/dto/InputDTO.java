@@ -15,7 +15,6 @@ public class InputDTO implements java.io.Serializable {
     @NotNull
     private URL rules;
 
-    @NotNull
     private URL validation;
 
     private String key;
@@ -60,7 +59,7 @@ public class InputDTO implements java.io.Serializable {
         return "InputDTO{" +
                 "data=" + data +
                 ", rules=" + rules +
-                ", validation=" + validation +
+                ", validation='" + validation + "\'" +
                 ", key='" + key + "\'" +
                 "}";
     }
