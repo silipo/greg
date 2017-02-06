@@ -8,6 +8,7 @@ import it.istat.dcit.itc.greg.service.CheckService;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,22 +35,23 @@ public class CheckController {
     @RequestMapping(value = "check", method = RequestMethod.POST, produces = {"application/json"})
     @ResponseBody
     public String check(@Valid @RequestBody final InputDTO input) throws IOException {
-        logger.info("*** dati ricevuti dal client [ URL ai dati : " + input.getData().toString() + " ]");
+        logger.info("Ricevuta richiesta: " + input.toString() );
 
         List<String> rows = ParsingService.parse(input.getData());
         if (rows != null) {
-            logger.info("*** n. righe dati [ " + rows.size() + " ]");
+            logger.info("Numero righe dati: " + rows.size());
         }
 
         List<Rule> rules = ParsingService.parseRules(input.getRules());
         if (rules != null) {
-            logger.info("*** n. regole lette [ " + rules.size() + " ]");
+            logger.info("Numero regole:" + rules.size());
         }
 
+        Reader validations = ParsingService.parseValidations(input.getValidation());
         //effettua chiamata a servizio Check
         Map return_json = new HashMap();
-        if (rows != null && rules != null) {
-            return_json = checkService.performCheck(rows, rules);
+        if (rows != null && rules != null && validations != null) {
+            return_json = checkService.performCheck(rows, rules, validations, input.getKey());
         }
 
         //serializza in output il json degli errori       

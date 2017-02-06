@@ -6,6 +6,7 @@ import it.istat.dcit.itc.greg.model.Rule;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,4 +45,7 @@ public class ParsingService {
 
     }
 
+    public static Reader parseValidations(URL validation) throws IOException {
+        return new BufferedReader(new InputStreamReader(validation.openStream()));
+    }
 }

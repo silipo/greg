@@ -11,6 +11,7 @@ import javax.script.ScriptException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +33,7 @@ public class CheckService {
         engine.eval(new BufferedReader(new InputStreamReader(classPathResource.getInputStream())));
     }
 
-    public Map<String, List<Rule>> performCheck(List<String> data, List<Rule> rules) {
+    public Map<String, List<Rule>> performCheck(List<String> data, List<Rule> rules, Reader validation, String key) {
 
         Map<String, List<Rule>> results = new HashMap<>();
         String[] variables = data.get(0).split(DATAFILE_SEPARATOR);
@@ -45,21 +46,26 @@ public class CheckService {
             logger.debug("[Analyzing row : " + row_index + "] - [Data : " + line + "]");
             for (Rule r : rules) {
                 String rtxt = r.getExpression();
+                boolean blocking = r.getBlocking();
                 for (int var_index = 0; var_index < variables.length; var_index++) {
                     String placeholder_regex = "\\[\\[\\b" + variables[var_index] + "\\b\\]\\]";
                     rtxt = rtxt.replaceAll(placeholder_regex, row_data[var_index]);
                 }
                 try {
                     if ((Boolean) engine.eval(rtxt)) {
+                        //c'è un errore nei dati, per cui interpreto la action (se è definita)
                         Rule rule_error = new Rule();
                         rule_error.setError_code(r.getError_code());
-                        //c'è un errore nei dati, per cui interpreto la action (se è definita)
                         if (r.getAction() != null && !r.getAction().isEmpty()) {
                             evaluated_action = (String) engine.eval(r.getAction());
                             rule_error.setAction((String)engine.eval(evaluated_action.toString()));
                         }
                         logger.debug("ERROR [" + r.getError_code() + "] on row: " + row_index + ", action to perform: " + rule_error.getAction());
                         row_errors.add(rule_error);
+                        // se la regola è bloccante, allora interrompo i controlli successivi
+                        if(blocking) {
+                            break;
+                        }
                     }
                 } catch (ScriptException e) {
                     logger.error("Engine rule evaluation exception on rule: " + rtxt + ", action: " + evaluated_action + ", message: " + e.getMessage());
