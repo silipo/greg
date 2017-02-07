@@ -59,8 +59,8 @@ public class InputDTO implements java.io.Serializable {
         return "InputDTO{" +
                 "data=" + data +
                 ", rules=" + rules +
-                ", validation='" + validation + "\'" +
-                ", key='" + key + "\'" +
+                ", validation=" + validation + "" +
+                ", key=" + key + "" +
                 "}";
     }
 }

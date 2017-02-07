@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package it.istat.dcit.itc.greg.dto;
 
-import java.util.ArrayList;
+import it.istat.dcit.itc.greg.model.Rule;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -14,39 +11,20 @@ import javax.validation.constraints.NotNull;
  * @author marco.silipo
  */
 public class ReplyDTO implements java.io.Serializable {
-    
+
     @NotNull
-    private String url;
-    
-    @NotNull
-    private ArrayList<String> rows;
+    private Map<String, List<Rule>> errors;
 
     public ReplyDTO() {
-        this.url  = "empty";
-        this.rows = new ArrayList<>();
-    }
-    
-    public ReplyDTO(String url) {
-        this.url  =  url;
-        this.rows = new ArrayList<>();
+        this.errors = new HashMap();
     }
 
-    public String getUrl() {
-        return url;
+    public Map<String, List<Rule>> getErrors() {
+        return errors;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setErrors(Map<String, List<Rule>> errors) {
+        this.errors = errors;
     }
 
-    public ArrayList<String> getRows() {
-        return rows;
-    }
-
-    public void setRows(ArrayList<String> rows) {
-        this.rows = rows;
-    }
-
-   
-    
 }
