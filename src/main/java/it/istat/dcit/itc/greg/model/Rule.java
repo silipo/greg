@@ -1,5 +1,7 @@
 package it.istat.dcit.itc.greg.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Date;
 
 public class Rule {
@@ -11,6 +13,7 @@ public class Rule {
     private String action;
     private Boolean blocking;
 
+    @JsonCreator
     public Rule() {
 
     }
@@ -39,7 +42,7 @@ public class Rule {
         this.error_code = error_code;
         this.expression = expression;
         this.action = action;
-        this.blocking = blocking;        
+        this.blocking = blocking;
     }
 
     public Date getValid_from() {
@@ -73,10 +76,11 @@ public class Rule {
     public void setBlocking(Boolean blocking) {
         this.blocking = blocking;
     }
-    
+
     @Override
+    @JsonValue
     public String toString() {
-        return " \"error_code\": \"" + error_code + "\", action: \"" + action + "\"";
-    } 
+        return "error_code: " + error_code + ", action: " + action;
+    }
 
 }
