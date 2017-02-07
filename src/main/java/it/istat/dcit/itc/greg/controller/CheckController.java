@@ -2,6 +2,7 @@ package it.istat.dcit.itc.greg.controller;
 
 import it.istat.dcit.itc.greg.service.ParsingService;
 import it.istat.dcit.itc.greg.dto.InputDTO;
+import it.istat.dcit.itc.greg.dto.ReplyDTO;
 import it.istat.dcit.itc.greg.model.Rule;
 import it.istat.dcit.itc.greg.service.CheckService;
 import java.io.IOException;
@@ -30,8 +31,8 @@ public class CheckController {
 
     @RequestMapping(value = "check", method = RequestMethod.POST, produces = {"application/json"})
     @ResponseBody
-    public String check(@Valid @RequestBody final InputDTO input) throws IOException {
-        logger.info("Ricevuta richiesta: " + input.toString() );
+    public ReplyDTO check(@Valid @RequestBody final InputDTO input) throws IOException {
+        logger.info("Ricevuta richiesta: " + input.toString());
 
         List<String> rows = ParsingService.parse(input.getData());
         if (rows != null) {
@@ -43,15 +44,21 @@ public class CheckController {
             logger.info("Numero regole:" + rules.size());
         }
 
-        Reader validations = ParsingService.parseValidations(input.getValidation());
-        //effettua chiamata a servizio Check
-        Map return_json = new HashMap();
-        if (rows != null && rules != null) {
-            return_json = checkService.performCheck(rows, rules, validations, input.getKey());
+        Reader validations = null;
+        if (input.getValidation() != null) {
+            //Validation file is specified, then parse it
+            validations = ParsingService.parseValidations(input.getValidation());
         }
+        //finally call Check service
+        ReplyDTO reply = new ReplyDTO();
+        Map<String, List<Rule>> errors = new HashMap();
+        if (rows != null && rules != null) {
+            errors = checkService.performCheck(rows, rules, validations, input.getKey());
+        }
+        reply.setErrors(errors);
 
-        //serializza in output il json degli errori       
-        return return_json.toString();
+        //serialize errors and return them to the client       
+        return reply;
     }
 
 }
