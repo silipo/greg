@@ -76,7 +76,7 @@ public class Rule {
     
     @Override
     public String toString() {
-        return " error code: " + error_code + ", action: " + action;
+        return " \"error_code\": \"" + error_code + "\", action: \"" + action + "\"";
     } 
 
 }

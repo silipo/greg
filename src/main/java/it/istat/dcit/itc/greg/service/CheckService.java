@@ -29,12 +29,16 @@ public class CheckService {
     private org.slf4j.Logger logger = LoggerFactory.getLogger(CheckService.class);
 
     public CheckService() throws IOException, ScriptException {
-        ClassPathResource classPathResource = new ClassPathResource("functions.js");
-        engine.eval(new BufferedReader(new InputStreamReader(classPathResource.getInputStream())));
     }
 
     public Map<String, List<Rule>> performCheck(List<String> data, List<Rule> rules, Reader validation, String key) {
-
+        if(validation != null){
+            try {
+                engine.eval(validation);
+            } catch (ScriptException e) {
+                logger.error("Failed engine eval for rules implementation, message: " + e.getMessage());
+            }
+        }
         Map<String, List<Rule>> results = new HashMap<>();
         String[] variables = data.get(0).split(DATAFILE_SEPARATOR);
         String evaluated_action = "";
@@ -57,8 +61,8 @@ public class CheckService {
                         Rule rule_error = new Rule();
                         rule_error.setError_code(r.getError_code());
                         if (r.getAction() != null && !r.getAction().isEmpty()) {
-                            evaluated_action = (String) engine.eval(r.getAction());
-                            rule_error.setAction((String)engine.eval(evaluated_action.toString()));
+//                            evaluated_action = (String) engine.eval(r.getAction());
+                            rule_error.setAction((String)engine.eval(r.getAction()));
                         }
                         logger.debug("ERROR [" + r.getError_code() + "] on row: " + row_index + ", action to perform: " + rule_error.getAction());
                         row_errors.add(rule_error);

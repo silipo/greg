@@ -2,14 +2,10 @@ package it.istat.dcit.itc.greg.controller;
 
 import it.istat.dcit.itc.greg.service.ParsingService;
 import it.istat.dcit.itc.greg.dto.InputDTO;
-import it.istat.dcit.itc.greg.dto.ReplyDTO;
 import it.istat.dcit.itc.greg.model.Rule;
 import it.istat.dcit.itc.greg.service.CheckService;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +46,7 @@ public class CheckController {
         Reader validations = ParsingService.parseValidations(input.getValidation());
         //effettua chiamata a servizio Check
         Map return_json = new HashMap();
-        if (rows != null && rules != null && validations != null) {
+        if (rows != null && rules != null) {
             return_json = checkService.performCheck(rows, rules, validations, input.getKey());
         }
 
