@@ -3,6 +3,7 @@ package it.istat.dcit.itc.greg.controller;
 import it.istat.dcit.itc.greg.service.ParsingService;
 import it.istat.dcit.itc.greg.dto.InputDTO;
 import it.istat.dcit.itc.greg.dto.ReplyDTO;
+import it.istat.dcit.itc.greg.dto.RuleDTO;
 import it.istat.dcit.itc.greg.model.Rule;
 import it.istat.dcit.itc.greg.service.CheckService;
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class CheckController {
         }
         //finally call Check service
         ReplyDTO reply = new ReplyDTO();
-        Map<String, List<Rule>> errors = new HashMap();
+        Map<String, List<RuleDTO>> errors = new HashMap();
         if (rows != null && rules != null) {
             errors = checkService.performCheck(rows, rules, validations, input.getKey());
         }
