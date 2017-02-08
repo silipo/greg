@@ -1,5 +1,6 @@
 package it.istat.dcit.itc.greg.service;
 
+import it.istat.dcit.itc.greg.dto.RuleDTO;
 import it.istat.dcit.itc.greg.model.Rule;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class KettleResidenzialeTest  {
 
     @Test
     public void testAll(){
-        Map<String, List<Rule>> results  = srv.performCheck(data, rules, null, null);
+        Map<String, List<RuleDTO>> results  = srv.performCheck(data, rules, null, null);
         assertTrue("rows in error should be 1 while they are " + results.size(), results.size() == 3 );
     }
 
