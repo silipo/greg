@@ -5,7 +5,7 @@ function removeChars( val ){
 }
 
 function validMonth( val ){
-    return ( val > 0 ) && ( val < 13 )
+    return ( Number(val) > 0 ) && ( Number(val) < 13 )
 }
 
 function checkEmpty(value){
@@ -31,7 +31,7 @@ function checkError130(val1,val2,val3,val4){
 }
 
 function checkError140(val){
-    return val < 2010
+    return Number(val) < 2010
 }
 
 function checkError200(v2101,v2102,v2103,v2104,v2105,v28,v29,v2101,v2102,v2103,v2105){
@@ -80,7 +80,7 @@ function checkAllEmptySez4(v41,v42,v43,v44,v45){
 
 
 function checkCorrection10(val){
-    return val < 2010
+    return Number(val) < 2010
 }
 
 function getCorrection10Action(){
@@ -88,7 +88,7 @@ function getCorrection10Action(){
 }
 
 function checkCorrection20(val){
-    return val > new Date().getFullYear();
+    return Number(val) > new Date().getFullYear();
 }
 
 function getCorrection20Action(){
@@ -96,15 +96,23 @@ function getCorrection20Action(){
 }
 
 function checkCorrection30(val7, val6){
-    return ( val7 == new Date().getFullYear() ) && ( val6 > new Date().getMonth() + 1 );
+    return ( Number(val7) == new Date().getFullYear() ) && ( Number(val6) > new Date().getMonth() + 1 );
 }
 
 function getCorrection30Action(){
     return '0.6=' + Number( new Date().getMonth() + 1);
 }
 
+function checkCorrection100(v81,v82){
+    return checkEmpty(v81) || checkEmpty(v82);
+}
+
+function getCorrection100Action(v06,v07){
+    return "8.1="+ v06 + ",8.2=" + v07;
+}
+
 function checkCorrection110(v81, v82){
-    return !validMonth( v81 ) || v82 < 2010 || v82 > 2050;
+    return !validMonth( v81 ) || Number(v82) < 2010 || Number(v82) > 2050;
 }
 
 function getCorrection110Action(){
@@ -113,7 +121,7 @@ function getCorrection110Action(){
 
 function checkCorrection140(){
     // TODO checkCorrection140()
-    return true;
+    return false;
 }
 
 function getCorrection140Action(){
@@ -121,22 +129,178 @@ function getCorrection140Action(){
     return "";
 }
 
-function checkCorrection150(){
-    // TODO checkCorrection150()
-    return true;
+function checkCorrection150(v03,v04,v06,v07){
+    return Number(v03)+Number(v04) > Number(v06)+Number(v07);
 }
 
-function getCorrection150Action(){
-    // TODO getCorrection150Action()
-    return "";
+function getCorrection150Action(v06,v07){
+    return "0.3="+ v06 + ",0.4=" + v07;
 }
 
 function checkCorrection160(){
     // TODO checkCorrection160()
-    return true;
+    return false;
 }
 
 function getCorrection160Action(){
     // TODO getCorrection160Action()
     return "";
 }
+
+function checkCorrection170(){
+    // TODO checkCorrection170()
+    return false;
+}
+
+function getCorrection170Action(){
+    // TODO getCorrection170Action()
+    return "";
+}
+
+function checkCorrection180(){
+    // TODO checkCorrection180()
+    return false;
+}
+
+function getCorrection180Action(){
+    // TODO getCorrection180Action()
+    return "";
+}
+
+function checkCorrection190(){
+    // TODO checkCorrection190()
+    return false;
+}
+
+function getCorrection190Action(){
+    // TODO getCorrection190Action()
+    return "";
+}
+
+function checkCorrection235(){
+    // TODO checkCorrection235()
+    return false;
+}
+
+function getCorrection235Action(){
+    // TODO getCorrection235Action()
+    return "";
+}
+
+function checkCorrection240(){
+    // TODO checkCorrection240()
+    return false;
+}
+
+function getCorrection240Action(){
+    // TODO getCorrection240Action()
+    return "";
+}
+
+function checkCorrection245(){
+    // TODO checkCorrection245()
+    return false;
+}
+
+function getCorrection245Action(){
+    // TODO getCorrection245Action()
+    return "";
+}
+
+function checkCorrection250(){
+    // TODO checkCorrection250()
+    return false;
+}
+
+function getCorrection250Action(){
+    // TODO getCorrection250Action()
+    return "";
+}
+
+function checkCorrection260(){
+    // TODO checkCorrection260()
+    return false;
+}
+
+function getCorrection260Action(){
+    // TODO getCorrection260Action()
+    return "";
+}
+
+function checkCorrection270(){
+    // TODO checkCorrection270()
+    return false;
+}
+
+function getCorrection270Action(){
+    // TODO getCorrection270Action()
+    return "";
+}
+
+function checkCorrection300(){
+    // TODO checkCorrection300()
+    return false;
+}
+
+function getCorrection300Action(){
+    // TODO getCorrection300Action()
+    return "";
+}
+
+function checkCorrection330(){
+    // TODO checkCorrection330()
+    return false;
+}
+
+function getCorrection330Action(){
+    // TODO getCorrection330Action()
+    return "";
+}
+
+function checkCorrection340(){
+    // TODO checkCorrection340()
+    return false;
+}
+
+function getCorrection340Action(){
+    // TODO getCorrection340Action()
+    return "";
+}
+
+function checkCorrection345(){
+    // TODO checkCorrection345()
+    return false;
+}
+
+function getCorrection345Action(){
+    // TODO getCorrection345Action()
+    return "";
+}
+
+function checkCorrection350(){
+    // TODO checkCorrection350()
+    return false;
+}
+
+function getCorrection350Action(){
+    // TODO getCorrection350Action()
+    return "";
+}
+
+function checkCorrection370(v51,v01){
+    return checkEmpty( v51 ) && Number(v01) == 3;
+}
+
+function getCorrection370Action(){
+    return "5.1=4";
+}
+
+function checkCorrection380(v51){
+    return checkEmpty( v51 ) && Number(v01) != 3;
+}
+
+function getCorrection380Action(){
+    return "5.1=1";
+}
+
+

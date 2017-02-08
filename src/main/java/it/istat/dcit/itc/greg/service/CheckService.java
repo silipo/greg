@@ -23,6 +23,8 @@ import java.util.regex.Pattern;
 public class CheckService {
 
     private static final String DATAFILE_SEPARATOR = Pattern.quote("|");
+    private static final String PLACEHOLDER_START = "\\[\\[\\b";
+    private static final String PLACEHOLDER_END = "\\b\\]\\]";
 
     private ScriptEngineManager engineManager = new ScriptEngineManager();
     private ScriptEngine engine = engineManager.getEngineByName("nashorn");
@@ -53,7 +55,7 @@ public class CheckService {
                 String rtxt = r.getExpression();
                 boolean blocking = r.getBlocking();
                 for (int var_index = 0; var_index < variables.length; var_index++) {
-                    String placeholder_regex = "\\[\\[\\b" + variables[var_index] + "\\b\\]\\]";
+                    String placeholder_regex = PLACEHOLDER_START + variables[var_index] + PLACEHOLDER_END;
                     rtxt = rtxt.replaceAll(placeholder_regex, row_data[var_index]);
                 }
                 try {
