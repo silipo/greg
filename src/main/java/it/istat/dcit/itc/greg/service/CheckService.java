@@ -1,5 +1,6 @@
 package it.istat.dcit.itc.greg.service;
 
+import it.istat.dcit.itc.greg.dto.RuleDTO;
 import it.istat.dcit.itc.greg.model.Rule;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -31,20 +32,20 @@ public class CheckService {
     public CheckService() throws IOException, ScriptException {
     }
 
-    public Map<String, List<Rule>> performCheck(List<String> data, List<Rule> rules, Reader validation, String key) {
-        if(validation != null){
+    public Map<String, List<RuleDTO>> performCheck(List<String> data, List<Rule> rules, Reader validation, String key) {
+        if (validation != null) {
             try {
                 engine.eval(validation);
             } catch (ScriptException e) {
                 logger.error("Failed engine eval for rules implementation, message: " + e.getMessage());
             }
         }
-        Map<String, List<Rule>> results = new HashMap<>();
+        Map<String, List<RuleDTO>> results = new HashMap<>();
         String[] variables = data.get(0).split(DATAFILE_SEPARATOR);
         String evaluated_action = "";
         //logger.debug("Evaluating rules with data variables: " + variables.length);
         for (int row_index = 1; row_index < data.size(); row_index++) {
-            List<Rule> row_errors = new ArrayList<>();
+            List<RuleDTO> row_errors = new ArrayList<>();
             String line = data.get(row_index);
             String[] row_data = line.split(DATAFILE_SEPARATOR, variables.length);
             logger.debug("[Analyzing row : " + row_index + "] - [Data : " + line + "]");
@@ -58,16 +59,19 @@ public class CheckService {
                 try {
                     if ((Boolean) engine.eval(rtxt)) {
                         //c'è un errore nei dati, per cui interpreto la action (se è definita)
-                        Rule rule_error = new Rule();
+                        RuleDTO rule_error = new RuleDTO();
+                        if (key != null && !key.isEmpty()) {
+                            rule_error.setKey(row_data[0]);
+                        }
                         rule_error.setError_code(r.getError_code());
                         if (r.getAction() != null && !r.getAction().isEmpty()) {
 //                            evaluated_action = (String) engine.eval(r.getAction());
-                            rule_error.setAction((String)engine.eval(r.getAction()));
+                            rule_error.setAction((String) engine.eval(r.getAction()));
                         }
                         logger.debug("ERROR [" + r.getError_code() + "] on row: " + row_index + ", action to perform: " + rule_error.getAction());
                         row_errors.add(rule_error);
                         // se la regola è bloccante, allora interrompo i controlli successivi
-                        if(blocking) {
+                        if (blocking) {
                             break;
                         }
                     }
@@ -76,10 +80,10 @@ public class CheckService {
                 }
             }
             if (!row_errors.isEmpty()) {
-                logger.debug("[" + row_errors.size() + " error(s) found on row " + row_index  + "]");
+                logger.debug("[" + row_errors.size() + " error(s) found on row " + row_index + "]");
                 results.put(String.valueOf(row_index), row_errors);
             } else {
-                logger.debug("[no errors found on row " + row_index  + "]");
+                logger.debug("[no errors found on row " + row_index + "]");
             }
 
         }
