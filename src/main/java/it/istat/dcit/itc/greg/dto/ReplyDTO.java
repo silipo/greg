@@ -1,6 +1,5 @@
 package it.istat.dcit.itc.greg.dto;
 
-import it.istat.dcit.itc.greg.model.Rule;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,17 +12,17 @@ import javax.validation.constraints.NotNull;
 public class ReplyDTO implements java.io.Serializable {
 
     @NotNull
-    private Map<String, List<Rule>> errors;
+    private Map<String, List<RuleDTO>> errors;
 
     public ReplyDTO() {
         this.errors = new HashMap();
     }
 
-    public Map<String, List<Rule>> getErrors() {
+    public Map<String, List<RuleDTO>> getErrors() {
         return errors;
     }
 
-    public void setErrors(Map<String, List<Rule>> errors) {
+    public void setErrors(Map<String, List<RuleDTO>> errors) {
         this.errors = errors;
     }
 
