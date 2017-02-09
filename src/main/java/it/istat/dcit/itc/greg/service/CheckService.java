@@ -76,8 +76,12 @@ public class CheckService {
                         }
                         rule_error.setError_code(r.getError_code());
                         if (r.getAction() != null && !r.getAction().isEmpty()) {
-//                            evaluated_action = (String) engine.eval(r.getAction());
-                            rule_error.setAction((String) engine.eval(r.getAction()));
+                            String atxt = r.getAction();
+                            for (int var_index = 0; var_index < variables.length; var_index++) {
+                                String placeholder_regex = PLACEHOLDER_START + variables[var_index] + PLACEHOLDER_END;
+                                atxt = atxt.replaceAll(placeholder_regex, row_data[var_index]);
+                            }
+                            rule_error.setAction((String) engine.eval(atxt));
                         }
                         logger.debug("ERROR [" + r.getError_code() + "] on row: " + row_index + ", action to perform: " + rule_error.getAction());
                         row_errors.add(rule_error);
