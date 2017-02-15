@@ -1,6 +1,6 @@
 {
       "data" : "http://localhost:9090/residenziale.csv",
-      "rules" : "http://localhost:9090/precheck_residenziale.json",
+      "rules" : "http://localhost:9090/errori_residenziale.json",
       "validation" : "http://localhost:9090/validation.js",
       "key" : ""
 }

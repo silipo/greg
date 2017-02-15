@@ -28,7 +28,7 @@ public class KettleResidenzialeTest  {
         //header
         //data.add("0.6|0.7|0.8");
         data = ParsingService.parse(ParsingServiceTest.class.getResource("/simplefile.csv"));  
-        rules = ParsingService.parseRules(ParsingServiceTest.class.getResource("/precheck_residenziale.json"));
+        rules = ParsingService.parseRules(ParsingServiceTest.class.getResource("/errori_residenziale.json"));
     }
 
     @Test

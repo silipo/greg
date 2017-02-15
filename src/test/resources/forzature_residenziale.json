@@ -1,0 +1,14 @@
+[
+    { "error_code": "10","expression": "checkCorrection10('[[0.7]]')","action": "getCorrection10Action()","blocking": false},
+    { "error_code": "20","expression": "checkCorrection20('[[0.7]]')","action": "getCorrection20Action()","blocking": false},
+    { "error_code": "30","expression": "checkCorrection30('[[0.7]]','[[0.6]]')","action": "getCorrection30Action()","blocking": false},
+    { "error_code": "100","expression": "checkCorrection100('[[8.1]]','[[8.2]]')","action": "getCorrection100Action('[[0.6]]','[[0.7]]')","blocking": false},
+    { "error_code": "110","expression": "checkCorrection110('[[8.1]]','[[8.2]]')","action": "getCorrection110Action()","blocking": false},
+    { "error_code": "150","expression": "checkCorrection150('[[8.1]]','[[8.2]]')","action": "getCorrection150Action()","blocking": false},
+    { "error_code": "160","expression": "checkCorrection160('[[8.1]]','[[8.2]]')","action": "getCorrection160Action()","blocking": false},
+    { "error_code": "170","expression": "checkCorrection170('[[8.1]]','[[8.2]]')","action": "getCorrection170Action()","blocking": false},
+    { "error_code": "180","expression": "checkCorrection180('[[8.1]]','[[8.2]]')","action": "getCorrection180Action()","blocking": false},
+    { "error_code": "190","expression": "checkCorrection190('[[8.1]]','[[8.2]]')","action": "getCorrection190Action()","blocking": false},
+    { "error_code": "370","expression": "checkCorrection370('[[5.1]]','[[0.1]]')","action": "getCorrection370Action()","blocking": false},
+    { "error_code": "380","expression": "checkCorrection380('[[5.1]]','[[0.1]]')","action": "getCorrection380Action()","blocking": false}
+]
