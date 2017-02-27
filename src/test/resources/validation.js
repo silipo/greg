@@ -79,6 +79,8 @@ function checkError240(val){
 */
 function checkError410(v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v2103,v2104,v2105,v211,v2711,v2712,v2713,v2714,v2721,v2722,v2723,v2724,v2731,v2732,v2733,v2734,v2741,v2742,v2743,v2744,v2751,v2752,v2753,v2754,v2761,v2762,v2763,v2764,v212){
     if( !checkAllEmptySez2(v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v2103,v2104,v2105,v211,v2711,v2712,v2713,v2714,v2721,v2722,v2723,v2724,v2731,v2732,v2733,v2734,v2741,v2742,v2743,v2744,v2751,v2752,v2753,v2754,v2761,v2762,v2763,v2764,v212) ){
+        //print("Sup non res: " + String( Number(v2101) + Number(v2102) + Number(v2103) + Number(v2104) + Number(v2105) ) );
+        //print("Sup tot: " + String( ( Number(v28) + Number(v29) + Number(v2101) + Number(v2102) + Number(v2103) + Number(v2104) + Number(v2105))/2 ) );
         return ( Number(v2101) + Number(v2102) + Number(v2103) + Number(v2104) + Number(v2105) >= ( Number(v28) + Number(v29) + Number(v2101) + Number(v2102) + Number(v2103) + Number(v2104) + Number(v2105))/2 );
     }else{return false;}
 }
@@ -88,7 +90,7 @@ function checkError410(v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v2103,v2104,v
 */
 function checkError450(v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v2103,v2104,v2105,v211,v2711,v2712,v2713,v2714,v2721,v2722,v2723,v2724,v2731,v2732,v2733,v2734,v2741,v2742,v2743,v2744,v2751,v2752,v2753,v2754,v2761,v2762,v2763,v2764,v212){
     if( !checkAllEmptySez2(v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v2103,v2104,v2105,v211,v2711,v2712,v2713,v2714,v2721,v2722,v2723,v2724,v2731,v2732,v2733,v2734,v2741,v2742,v2743,v2744,v2751,v2752,v2753,v2754,v2761,v2762,v2763,v2764,v212) ){
-        print( Number(v24) + ' ' + 6*Number(v21));
+        //print( Number(v24) + ' ' + 6*Number(v21));
         return ( Number(v24) > 6*Number(v21) );
     }else{return false;}
 }
@@ -231,8 +233,7 @@ function getCorrection110Action(){
 120 - Mese e/o anno rilascio errati
 */
 function checkCorrection120(v03, v04){
-    // TODO da completare
-    return isNumeric(v03) && isNumeric(v04) && validMonth(v03);
+    return !isNumeric(v03) || !isNumeric(v04) || !validMonth(v03);
 }
 
 /*
@@ -246,8 +247,7 @@ function getCorrection120Action(){
 130 - mese ritiro = null; anno ritiro = null
 */
 function checkCorrection130(v06, v07){
-    // TODO da completare
-    return isNumeric(v06) && isNumeric(v07) && validMonth(v06);
+    return !isNumeric(v06) || !isNumeric(v07) || !validMonth(v06);
 }
 
 /*
@@ -347,7 +347,7 @@ function checkCorrection180(v03,v04,v06,v07){
 
 */
 function getCorrection180Action(v01,v03,v04){
-    print(v03,v04,v01);
+    //print(v03,v04,v01);
     if( v01 == "2" ){
         if( v03 == '12' ){
             return "MESE_RITIRO=1,ANNO_RITIRO=" + String(Number(v04)+1);
