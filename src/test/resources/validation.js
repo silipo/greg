@@ -19,7 +19,7 @@ function checkEmpty(value){
 }
 
 /*
-110 - Più riquadri compilati
+110 - Più riquadri compilati - modello residenziale
 return true with more than 1 section with data
 */
 function checkError110( v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v2103,v2104,v2105,v211,v2711,v2712,v2713,v2714,v2721,v2722,v2723,v2724,v2731,v2732,v2733,v2734,v2741,v2742,v2743,v2744,v2751,v2752,v2753,v2754,v2761,v2762,v2763,v2764,v212,v31,v32,v33,v34,v35,v36,v37,v38,v39,v310,v311,v312,v41,v42,v43,v44,v45){
@@ -40,7 +40,24 @@ function checkError110( v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v2103,v2104,
 }
 
 /*
-120 - Nessun riquadro compilato
+115 - Più riquadri compilati - modello NON residenziale
+return true with more than 1 section with data
+*/
+function checkError115( v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211,v31,v32,v33,v34,v35,v36,v37,v38,v39,v310,v311){
+    var i = 0;
+    if(!checkAllEmptySez2nr(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211)){
+        //print('riquadro 2 compilato');
+        i++;
+    }
+    if(!checkAllEmptySez3nr(v31,v32,v33,v34,v35,v36,v37,v38,v39,v310,v311)) {
+        //print('riquadro 3 compilato');
+        i++;
+    }    
+    return  i > 1;
+}
+
+/*
+120 - Nessun riquadro compilato - modello non residenziale
 return true with all sections with no data
 */
 function checkError120( v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v2103,v2104,v2105,v211,v2711,v2712,v2713,v2714,v2721,v2722,v2723,v2724,v2731,v2732,v2733,v2734,v2741,v2742,v2743,v2744,v2751,v2752,v2753,v2754,v2761,v2762,v2763,v2764,v212,v31,v32,v33,v34,v35,v36,v37,v38,v39,v310,v311,v312,v41,v42,v43,v44,v45){
@@ -61,14 +78,31 @@ function checkError120( v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v2103,v2104,
 }
 
 /*
-130 - Data rilascio e Data ritiro omesse
+125 - Nessun riquadro compilato - modello non residenziale
+return true with all sections with no data
+*/
+function checkError125(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211,v31,v32,v33,v34,v35,v36,v37,v38,v39,v310,v311){
+    var i = 0;
+    if(!checkAllEmptySez2nr(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211)){
+        //print('riquadro 2 compilato');
+        i++;
+    }
+    if(!checkAllEmptySez3nr(v31,v32,v33,v34,v35,v36,v37,v38,v39,v310,v311)) {
+        //print('riquadro 3 compilato');
+        i++;
+    }
+    return  i === 0;
+}
+
+/*
+230 - Data rilascio e Data ritiro omesse
 */
 function checkError230(val1,val2,val3,val4){
     return checkEmpty(val1) || checkEmpty(val2) || checkEmpty(val3) || checkEmpty(val4);
 }
 
 /*
-140 - Data ritiro < 2010
+240 - Anno ritiro < 2010
 */
 function checkError240(val){
     return Number(val) < 2010;
@@ -81,8 +115,32 @@ function checkError410(v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v2103,v2104,v
     if( !checkAllEmptySez2(v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v2103,v2104,v2105,v211,v2711,v2712,v2713,v2714,v2721,v2722,v2723,v2724,v2731,v2732,v2733,v2734,v2741,v2742,v2743,v2744,v2751,v2752,v2753,v2754,v2761,v2762,v2763,v2764,v212) ){
         //print("Sup non res: " + String( Number(v2101) + Number(v2102) + Number(v2103) + Number(v2104) + Number(v2105) ) );
         //print("Sup tot: " + String( ( Number(v28) + Number(v29) + Number(v2101) + Number(v2102) + Number(v2103) + Number(v2104) + Number(v2105))/2 ) );
-        return ( Number(v2101) + Number(v2102) + Number(v2103) + Number(v2104) + Number(v2105) >= ( Number(v28) + Number(v29) + Number(v2101) + Number(v2102) + Number(v2103) + Number(v2104) + Number(v2105))/2 );
+        return ( Number(v2101) + Number(v2102) + Number(v2103) + Number(v2104) + Number(v2105) > ( Number(v28) + Number(v29) + Number(v2101) + Number(v2102) + Number(v2103) + Number(v2104) + Number(v2105))/2 );
     }else{return false;}
+}
+
+/*
+420 - Superficie utile > 50% della Sup.Totale
+*/
+function checkError420(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211,v23){
+
+    if( !checkAllEmptySez2(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211) ){
+        //print("Sup utile: " + String( Number(v211)) );
+        //print("Sup tot: " + String( ( Number(v23) ) );
+        return ( Number(v211) > ( Number(v23))/2 );
+    } else {return false;}
+}
+
+
+/*
+430 -  Piani > 40
+*/
+function checkError430(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211){
+
+    if( !checkAllEmptySez2(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211) ){
+        //print("Piani: " + String( ( Number(v21) ) );
+        return ( Number(v21) > 40 );
+    } else {return false;}
 }
 
 /*
@@ -149,9 +207,25 @@ function checkAllEmptySez2(v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v2103,v21
 /*
 return true if does not contain data
 */
+function checkAllEmptySez2nr(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211){
+   //print( 'Sez. 2: ' + v21 + v22 + v23 + v24 + v25 + v26 + v27 + v28 + v29 + v210 + v211  );
+   return ( checkEmpty( v21 ) && checkEmpty( v22 ) && checkEmpty( v23 ) && checkEmpty( v24 ) && checkEmpty( v25 ) && checkEmpty( v26 )&& checkEmpty( v27 )&& checkEmpty( v28 ) && checkEmpty( v29 ) && checkEmpty( v210 ) && checkEmpty( v211 ) );
+}
+
+/*
+return true if does not contain data
+*/
 function checkAllEmptySez3(v31,v32,v33,v34,v35,v36,v37,v38,v39,v310,v311,v312){
    return ( checkEmpty( v31 ) && checkEmpty( v32 ) && checkEmpty( v33 ) && checkEmpty( v34 ) && checkEmpty( v35 ) && checkEmpty( v36 ) && checkEmpty( v37 ) && checkEmpty( v38 ) && checkEmpty( v39 ) && checkEmpty( v310 ) &&  checkEmpty( v311 ) && checkEmpty( v312 ) );
 }
+
+/*
+return true if does not contain data
+*/
+function checkAllEmptySez3nr(v31,v32,v33,v34,v35,v36,v37,v38,v39,v310,v311){
+   return ( checkEmpty( v31 ) && checkEmpty( v32 ) && checkEmpty( v33 ) && checkEmpty( v34 ) && checkEmpty( v35 ) && checkEmpty( v36 ) && checkEmpty( v37 ) && checkEmpty( v38 ) && checkEmpty( v39 ) && checkEmpty( v310 ) &&  checkEmpty( v311 ));
+}
+
 
 /*
 return true if does not contain data

@@ -1,0 +1,8 @@
+[
+    { "error_code": "115","expression": "checkError115( '[[PIANI]]','[[VOLUME]]','[[SUP_TOTALE]]','[[SUP_ATTIVITA]]','[[SUP_AMMINI]]','[[SUP_ALTRO]]','[[TOTALE]]','[[ABITAZIONI]]','[[STANZE]]','[[ACCESSORI]]','[[SUP_UTILE]]','[[SOPRAELE]]','[[VOLUME_AMP]]','[[SUP_TOTALE_AMP]]','[[SUP_ATTIVITA_AMP]]','[[SUP_AMMINI_AMP]]','[[SUP_ALTRO_AMP]]','[[TOTALE_AMP]]','[[ABITAZIONI_AMP]]','[[STANZE_AMP]]','[[ACCESSORI_AMP]]','[[SUP_UTILE_AMP]]')","action": "","blocking": true},
+    { "error_code": "125","expression": "checkError125( '[[PIANI]]','[[VOLUME]]','[[SUP_TOTALE]]','[[SUP_ATTIVITA]]','[[SUP_AMMINI]]','[[SUP_ALTRO]]','[[TOTALE]]','[[ABITAZIONI]]','[[STANZE]]','[[ACCESSORI]]','[[SUP_UTILE]]','[[SOPRAELE]]','[[VOLUME_AMP]]','[[SUP_TOTALE_AMP]]','[[SUP_ATTIVITA_AMP]]','[[SUP_AMMINI_AMP]]','[[SUP_ALTRO_AMP]]','[[TOTALE_AMP]]','[[ABITAZIONI_AMP]]','[[STANZE_AMP]]','[[ACCESSORI_AMP]]','[[SUP_UTILE_AMP]]')","action": "","blocking": true},    
+    { "error_code": "230","expression": "checkError230('[[MESE_RILASCIO]]','[[ANNO_RILASCIO]]','[[MESE_RITIRO]]','[[ANNO_RITIRO]]')","action": "","blocking": false},
+    { "error_code": "240","expression": "checkError240('[[ANNO_RITIRO]]')","action": "","blocking": false},
+    { "error_code": "420","expression": "checkError420( '[[PIANI]]','[[VOLUME]]','[[SUP_TOTALE]]','[[SUP_ATTIVITA]]','[[SUP_AMMINI]]','[[SUP_ALTRO]]','[[TOTALE]]','[[ABITAZIONI]]','[[STANZE]]','[[ACCESSORI]]','[[SUP_UTILE]]')","action": "","blocking": false},
+    { "error_code": "430","expression": "checkError430( '[[PIANI]]','[[VOLUME]]','[[SUP_TOTALE]]','[[SUP_ATTIVITA]]','[[SUP_AMMINI]]','[[SUP_ALTRO]]','[[TOTALE]]','[[ABITAZIONI]]','[[STANZE]]','[[ACCESSORI]]','[[SUP_UTILE]]')","action": "","blocking": false}
+]
