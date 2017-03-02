@@ -124,10 +124,10 @@ function checkError410(v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v2103,v2104,v
 */
 function checkError420(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211,v23){
 
-    if( !checkAllEmptySez2(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211) ){
+    if( !checkAllEmptySez2nr(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211) ){
         //print("Sup utile: " + String( Number(v211)) );
         //print("Sup tot: " + String( ( Number(v23) ) );
-        return ( Number(v211) > ( Number(v23))/2 );
+        return ( Number(v211) > (Number(v23)/2) );
     } else {return false;}
 }
 
@@ -137,7 +137,7 @@ function checkError420(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211,v23){
 */
 function checkError430(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211){
 
-    if( !checkAllEmptySez2(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211) ){
+    if( !checkAllEmptySez2nr(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211) ){
         //print("Piani: " + String( ( Number(v21) ) );
         return ( Number(v21) > 40 );
     } else {return false;}
@@ -543,6 +543,123 @@ function getCorrection270Action(v21,v2711,v2712,v2713,v2714,v2721,v2722,v2723,v2
     return "";
 }
 
+
+/*
+275 - Sup.Utile > Sup.Altri usi
+*/
+function checkCorrection275(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211){
+    //print(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211);
+    return ( !checkAllEmptySez2nr(v21,v22,v23,v24,v25,v26,v27,v28,v29,v210,v211) && ( Number(v26) > Number(v211)) );
+}
+
+/*
+setto SUP_ALTRO pari alla somma di SUP_UTILE e se stesso
+*/
+function getCorrection275Action(v26,v211){
+    //print(v26,v211);
+    return ("SUP_ALTRO=" + (Number(v26)+Number(v211)));    
+}
+
+/*
+280 - Sup.Utile AMP > Sup.Altri usi AMP
+*/
+function checkCorrection280(v31,v32,v33,v34,v35,v36,v37,v38,v39,v310,v311){
+    return ( !checkAllEmptySez3nr(v31,v32,v33,v34,v35,v36,v37,v38,v39,v310,v311) && ( Number(v36) > Number(v311)) );
+}
+
+/*
+setto SUP_ALTRO_AMP pari alla somma di SUP_UTILE_AMP e se stesso
+*/
+function getCorrection280Action(v36,v311){
+    //print(v36,v311);
+    return ("SUP_ALTRO_AMP=" + v36+v311);    
+}
+
+/*
+290 -  Dest.Economica assente e Tipo Fabbricato = 1 o 2
+*/
+function checkCorrection290(v41, v51){
+   return checkEmpty(v41) && (Number(v51) === 1 || Number(v51) === 2)
+}
+
+/*
+setto DEST_ECONOMICA a 2
+*/
+function getCorrection290Action(){
+   return ("DEST_ECONOMICA=2");    
+}
+
+/*
+291 -  Dest.Economica assente e Tipo Fabbricato = 3
+*/
+function checkCorrection291(v41, v51){
+   return checkEmpty(v41) && (Number(v51) === 3)
+}
+
+/*
+setto DEST_ECONOMICA a 1
+*/
+function getCorrection291Action(){
+   return ("DEST_ECONOMICA=1");    
+}
+
+
+/*
+292 -  Dest.Economica assente e Tipo Fabbricato = 4
+*/
+function checkCorrection292(v41, v51){
+   return checkEmpty(v41) && (Number(v51) === 4)
+}
+
+/*
+setto DEST_ECONOMICA a 3
+*/
+function getCorrection292Action(){
+   return ("DEST_ECONOMICA=3");    
+}
+
+/*
+293 -  Dest.Economica assente e Tipo Fabbricato = 5 o 7
+*/
+function checkCorrection293(v41, v51){
+   return checkEmpty(v41) && (Number(v51) === 5 || Number(v51) === 7)
+}
+
+/*
+setto DEST_ECONOMICA a 4
+*/
+function getCorrection293Action(){
+   return ("DEST_ECONOMICA=4");    
+}
+
+/*
+294 -  Dest.Economica assente e Tipo Fabbricato = 6
+*/
+function checkCorrection294(v41, v51){
+   return checkEmpty(v41) && (Number(v51) === 6)
+}
+
+/*
+setto DEST_ECONOMICA a 8
+*/
+function getCorrection294Action(){
+   return ("DEST_ECONOMICA=8");    
+}
+
+/*
+295 -  Dest.Economica assente e Tipo Fabbricato = 8
+*/
+function checkCorrection295(v41, v51){
+    return checkEmpty(v41) && (Number(v51) === 8)
+}
+
+/*
+setto DEST_ECONOMICA a 10
+*/
+function getCorrection295Action(){
+   return ("DEST_ECONOMICA=10");    
+}
+ 
 /*
 300 - Spostamento da nuovo ad ampliamento
 */
@@ -566,6 +683,104 @@ function getCorrection300Action(v21,v22,v23,v24,v25,v26,v28,v29,v2101,v2102,v210
         return "VOLUME_AMP="+v25+",SUP_TOTALE_AMP="+v26+",SUP_ESTERNI_AMP="+v29+",SUP_PRODUTTIVO_AMP="+String( Number(v2101) + Number(v2102) + Number(v2103) + Number(v2104) + Number(v2105) ) + ",PIANI=null,VOLUME=null,SUP_TOTALE=null,ACCESSORI=null,SUP_ESTERNI=null,SUP_AGRICOLTURA=null,SUP_INDUSTRIA=null,SUP_COMMERCIO=null,SUP_SERVIZI=null,SUP_ALTRO=null,TOTALE_SUPERFICE=null" ;
     }
     return "";
+}
+
+/*
+301 -  Tipo Fabbricato assente e dest.econ. = 1
+*/
+function checkCorrection301(v41,v51){
+    return checkEmpty(v51) && (Number(v41) === 1);
+}
+
+/*
+setto TIP_FABBRICATO a 3
+*/
+function getCorrection301Action(){
+    return "TIP_FABBRICATO=3";
+}
+
+/*
+302 -  Tipo Fabbricato assente e dest.econ. = 2
+*/
+function checkCorrection302(v41,v51){
+    return checkEmpty(v51) && (Number(v41) === 2);
+}
+
+/*
+setto TIP_FABBRICATO a 2
+*/
+function getCorrection302Action(){
+    return "TIP_FABBRICATO=2";
+}
+
+/*
+303 -  Tipo Fabbricato assente e dest.econ. = 3
+*/
+function checkCorrection303(v41,v51){
+    return checkEmpty(v51) && (Number(v41) === 3);
+}
+
+/*
+setto TIP_FABBRICATO a 4
+*/
+function getCorrection303Action(){
+    return "TIP_FABBRICATO=4";
+}
+
+/*
+304 -  Tipo Fabbricato assente e dest.econ. = 4
+*/
+function checkCorrection304(v41,v51){
+    return checkEmpty(v51) && (Number(v41) === 4);
+}
+
+/*
+setto TIP_FABBRICATO a 7
+*/
+function getCorrection304Action(){
+    return "TIP_FABBRICATO=7";
+}
+
+/*
+305 -  Tipo Fabbricato assente e dest.econ. = 5,7,9,10
+*/
+function checkCorrection305(v41,v51){
+    return checkEmpty(v51) && (Number(v41) === 5 || Number(v41) === 7 || Number(v41) === 9 || Number(v41) === 10);
+}
+
+/*
+setto TIP_FABBRICATO a 8
+*/
+function getCorrection305Action(){
+    return "TIP_FABBRICATO=8";
+}
+
+/*
+306 -  Tipo Fabbricato assente e dest.econ. = 6
+*/
+function checkCorrection306(v41, v51){
+    return checkEmpty(v51) && (Number(v41) === 6);
+}
+
+/*
+setto TIP_FABBRICATO a 1
+*/
+function getCorrection306Action(){
+    return "TIP_FABBRICATO=1";
+}
+
+/*
+308 -  Tipo Fabbricato assente e dest.econ. = 8
+*/
+function checkCorrection308(v41,v51){
+    return checkEmpty(v51) && (Number(v41) === 8);
+}
+
+/*
+setto TIP_FABBRICATO a 6
+*/
+function getCorrection308Action(){
+    return "TIP_FABBRICATO=6";
 }
 
 /*
