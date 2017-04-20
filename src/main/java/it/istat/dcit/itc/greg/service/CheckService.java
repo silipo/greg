@@ -36,6 +36,7 @@ public class CheckService {
     }
 
     public Map<String, List<RuleDTO>> performCheck(List<String> data, List<Rule> rules, Reader validation, String key) {
+        Map<String, List<RuleDTO>> results = new HashMap<>();
         if (validation != null) {
             try {
                 engine.eval(validation);
@@ -43,7 +44,11 @@ public class CheckService {
                 logger.error("Failed engine eval for rules implementation, message: " + e.getMessage());
             }
         }
-        Map<String, List<RuleDTO>> results = new HashMap<>();
+        //No data available
+        if (data.isEmpty()) {
+            logger.debug("[no data available]");
+            return results;
+        }
         String[] variables = data.get(0).split(DATAFILE_SEPARATOR);
         String evaluated_action = "";
         String row_id = null;
@@ -55,9 +60,10 @@ public class CheckService {
             String[] row_data = line.split(DATAFILE_SEPARATOR, variables.length);
             //get the key data for this line, or null if key is wrong or not specified
             if (key != null) {
-                 row_id_index = Arrays.asList(variables).indexOf(key);
-                 if (row_id_index!=-1) 
-                     row_id = row_data[row_id_index];
+                row_id_index = Arrays.asList(variables).indexOf(key);
+                if (row_id_index != -1) {
+                    row_id = row_data[row_id_index];
+                }
             }
             logger.debug("[Analyzing row : " + row_index + "] - [Data : " + line + "]");
             for (Rule r : rules) {
